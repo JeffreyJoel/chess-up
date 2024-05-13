@@ -23,7 +23,7 @@ const page = () => {
 
     return (
         <div className='flex bg-homeBack justify-center '>
-            <div className='max-w-[1280px] justify-center  flex flex-row gap-12 flex-wrap my-12'>
+            <div className='max-w-[600px] justify-center  flex flex-row gap-12 flex-wrap my-12'>
                 <Flex direction="column" gap="6" maxWidth="450px">
                     <Text className='text-3xl font-bold text-white'>Play the game of {title}</Text>
                     <Card variant="surface" className='w-[450px]' >
