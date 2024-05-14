@@ -20,32 +20,30 @@ export default function Arena() {
     // }, [draggedElement]);
 
     return (
-        <main className="flex min-h-screen flex-col items-center justify-between p-24">
+        <main className="flex min-h-screen flex-col items-center justify-between p-24 bg-[#1A2337]">
 
-            <div className="relative flex flex-col place-items-center before:absolute before:h-[300px] before:w-full sm:before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full sm:after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px]">
-                <div className="flex flex-row w-[560px] gap-4 items-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:rounded-t-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-                    <div className="border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30"></div>
-                    <div>
-                        <p>0x123uifdriew9w9wq0q9wqw</p>
-                        <p>1443</p>
+            <div className="flex flex-row items-stretch justify-center gap-5">
+                <div className="relative flex flex-col place-items-center before:absolute before:h-[300px] before:w-full sm:before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full sm:after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px]">
+                    <div className="flex flex-row w-[640px] gap-4 items-center border-b border-gray-300 bg-gradient-to-b from-[#111827] pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:rounded-t-xl lg:border lg:bg-[#1A2337] lg:p-4 lg:dark:bg-zinc-800/30">
+                        <div className="border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-zinc-200 lg:p-4 lg:dark:bg-zinc-800/30"></div>
+                        <div>
+                            <p className="text-white">AbidoShaker</p>
+                            <div></div>
+                        </div>
                     </div>
-                    <div className="border-b ml-auto border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-                        <p>10:00</p>
+
+                    <div className={`z-10 w-[640px] h-[640px] flex flex-row ${"flex-wrap"}`}>
+                        {pieces?.board.map((piece, index) => piece.map((pie, ind) => <Square key={8 * index + ind} piece={pie} index={8 * index + ind} setDElement={setDElement} draggedElement={draggedElement} board={pieces} setPieces={setPieces} />))}
                     </div>
-                </div>
-                <div className={`z-10 w-[560px] h-[560px] flex flex-row ${"flex-wrap"}`}>
-                    {pieces?.board.map((piece, index) => piece.map((pie, ind) => <Square key={8 * index + ind} piece={pie} index={8 * index + ind} setDElement={setDElement} draggedElement={draggedElement} board={pieces} setPieces={setPieces} />))}
-                </div>
-                <div className="flex flex-row w-[560px] gap-4 items-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:rounded-b-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-                    <div className="border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30"></div>
-                    <div>
-                        <p>0x123uifdriew9w9wq0q9wqw</p>
-                        <p>1443</p>
-                    </div>
-                    <div className="border-b ml-auto border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-                        <p>10:00</p>
+                    <div className="flex flex-row w-[640px] gap-4 items-center border-b border-gray-300 bg-gradient-to-b from-[#111827] pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:rounded-b-xl lg:border lg:bg-[#1A2337] lg:p-4 lg:dark:bg-zinc-800/30">
+                        <div className="border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30"></div>
+                        <div>
+                            <p className="text-white">0x123uifdriew9w9wq0q9wqw</p>
+                            <div></div>
+                        </div>
                     </div>
                 </div>
+                <div className="bg-[#111827] w-[450px]"></div>
             </div>
         </main>
     );

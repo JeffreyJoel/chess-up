@@ -73,5 +73,5 @@ export default function Square({ piece, index, draggedElement, setDElement, boar
     }
     console.log(piece.toLowerCase());
 
-    return <div id={`${rows[idNum]}${row}-${index}`} onDragOver={handleOnDragOver} onDrop={handleOnDrop} className={` w-[70px] h-[70px] backdrop-blur-2xl z-[-9] ${color} relative`}><div draggable id={`${index}`} onDragStart={handleOnDrag} onDrop={handleOnDrop} className={`${cursor} square -z-10`}>{piece.toLowerCase() !== " " ? <Image src={pieces[piece.toLowerCase()]} alt="piece" width={60} height={60} /> : ""}</div></div>
+    return <div id={`${rows[idNum]}${row}-${index}`} onDragOver={handleOnDragOver} onDrop={handleOnDrop} className={` w-[80px] h-[80px] backdrop-blur-2xl z-[-9] ${color} relative`}><div draggable id={`${index}`} onDragStart={handleOnDrag} onDrop={handleOnDrop} className={`${cursor} square -z-10`}>{piece.toLowerCase() !== " " ? <Image src={pieces[piece.toLowerCase()]} alt="piece" width={70} height={70} /> : ""}</div></div>
 }
