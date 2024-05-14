@@ -26,11 +26,12 @@ async function storeNFT(image: any, name: string, description: string) {
   const nftstorage = new NFTStorage({ token: NFT_STORAGE_KEY });
 
   // call client.store, passing in the image & metadata
-  return nftstorage.store({
+  const metadata = await nftstorage.store({
     image,
     name,
     description,
   });
+  return metadata;
 }
 
 /**
