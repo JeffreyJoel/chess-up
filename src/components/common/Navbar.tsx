@@ -5,11 +5,11 @@ import { JSX, SVGProps } from "react"
 
 export default function NavBar() {
   return (
-    <header className="flex items-center justify-between h-16 px-4 md:px-6  shadow-sm bg-gray-900">
-      <div className="flex items-center gap-4">
+    <header className="flex  fixed top-0 z-10 shadow-sm w-full px-6 md:px-12 bg-gray-900">
+      <div className="flex items-center justify-between h-16 w-full px-6 gap-4">
         <Link className="flex items-center gap-2" href="#">
         <PlayIcon className="h-6 w-6  text-gray-400" />
-          <span className="text-lg font-bold text-gray-400">Board Game Hub</span>
+          <span className="text-lg font-bold text-gray-400">ChessUp</span>
         </Link>
       </div>
       <div className="flex items-center gap-4">
