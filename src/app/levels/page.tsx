@@ -84,7 +84,7 @@ export default function page() {
   return (
     <>
       <div className="bg-homeBack">
-        <div className="container mx-auto grid grid-cols-1 md:grid-cols-[1fr_300px] gap-8 py-12">
+        <div className="container mt-12  mx-auto grid grid-cols-1 md:grid-cols-[1fr_300px] gap-8 py-12">
           <div className="relative">
             <div className="relative bg-gray-900 p-8 rounded-lg shadow-lg">
               <div className="flex justify-center">
