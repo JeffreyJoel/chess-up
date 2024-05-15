@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 "use client";
 import Footer from "@/components/common/Footer";
 import { SVGProps, useState } from "react";
@@ -65,7 +66,7 @@ export default function Levels() {
             <LiteYouTubeEmbed
               id={"fKxG8KjH1Qg"}
               title={"How to Play Chess"}
-              className="rounded-lg"
+             
             />
           </div>
         </Flex>
@@ -184,7 +185,6 @@ export default function Levels() {
             <LiteYouTubeEmbed
               id={"fKxG8KjH1Qg"}
               title={"How to Play Chess"}
-              className="rounded-lg"
             />
           </div>
         </Flex>
