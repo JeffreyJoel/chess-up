@@ -11,7 +11,7 @@ export default function Footer() {
         <div className="flex items-center">
           <Link className="inline-flex items-center" href="#">
             <GamepadIcon className="h-8 w-8 text-indigo-500" />
-            <span className="ml-2 text-xl font-bold text-white">GameHub</span>
+            <span className="ml-2 text-xl font-bold text-white">ChessUp</span>
           </Link>
         </div>
         <nav className="flex flex-col space-y-2">
@@ -60,7 +60,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="mt-8 border-t border-gray-700 pt-8 text-center text-sm">
-        <p>© 2024 GameHub. All rights reserved.</p>
+        <p>© 2024 ChessUp. All rights reserved.</p>
       </div>
     </footer>
   )

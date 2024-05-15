@@ -37,45 +37,34 @@ export default function Levels() {
     const receipt = await tx.wait()
 
     console.log(receipt);
-    if(receipt.status === 1){
-      router.push(`/play/${receipt.hash}?${level}`)
+    if (receipt.status === 1) {
+      router.push(`/play/${receipt.hash}?level=${level}`)
     }
-    
+
   };
 
   switch (level) {
     case 0:
       content = (
         <Flex maxWidth={"650px"} direction="column" gap={"4"}>
-          <div>
-            <Image
-              src={"/images/chess.jpeg"}
-              alt="Chess"
-              height={250}
-              width={650}
-              className="rounded-lg"
-            />
-          </div>
-
-          <p className="text-white text-xl">
-            {
-              "Chess is a two-player strategy board game that is believed to have originated in India in the 6th century AD. The game is played on an 8x8 grid and is one of the most popular games in the world."
-            }
-          </p>
           <div className="h-[350px] w-full">
             <LiteYouTubeEmbed
               id={"fKxG8KjH1Qg"}
               title={"How to Play Chess"}
-             
+
             />
           </div>
+          <p className="text-white text-xl">
+            Chess is a two-player strategy board game that is believed to have originated in India in the 6th century AD. The game is played on an 8x8 grid and is one of the most popular games in the world.
+          </p>
         </Flex>
       );
       break;
     case 1:
       content = (
-        <Flex direction={"column"} gap={"8"}>
-          <h1 className="text-white text-3xl font-bold">Beginner Level</h1>
+        <Flex direction={"column"} gap={"4"}>
+          <h1 className="text-white text-3xl font-bold">Abidoshaker (Beginner Level)</h1>
+          <Image src={"/images/gandusa-gandusa.jpeg"} width={300} height={300} alt="abidoshaker" />
           <p className="text-white text-xl">
             Before you embark on your chess journey, let's lay the foundation
             with the Beginner level. This is where you'll learn the basics and
@@ -97,8 +86,9 @@ export default function Levels() {
       break;
     case 2:
       content = (
-        <Flex direction={"column"} gap={"8"}>
-          <h1 className="text-white text-3xl font-bold">Intermediate Level</h1>
+        <Flex direction={"column"} gap={"4"}>
+          <h1 className="text-white text-3xl font-bold">GandukaGandusa (Intermediate Level)</h1>
+          <Image src={"/images/lemasepre.jpeg"} width={300} height={300} alt="GandukaGandusa" />
           <p className="text-white text-xl">
             Welcome to the Intermediate level, where your chess prowess will
             truly be put to the test. Here, you'll face more complex strategies
@@ -120,8 +110,9 @@ export default function Levels() {
       break;
     case 3:
       content = (
-        <Flex direction={"column"} gap={"8"}>
-          <h1 className="text-white text-3xl font-bold">Advanced Level</h1>
+        <Flex direction={"column"} gap={"4"}>
+          <h1 className="text-white text-3xl font-bold">Lamante(Advanced Level)</h1>
+          <Image src={"/images/pahose.jpeg"} width={300} height={300} alt="Lamante" />
           <p className="text-white text-xl">
             Prepare yourself for the ultimate test of skill and strategy at the
             Advanced level. Only those with a deep understanding of the game can
@@ -143,8 +134,9 @@ export default function Levels() {
       break;
     case 4:
       content = (
-        <Flex direction={"column"} gap={"8"}>
-          <h1 className="text-white text-3xl font-bold">Expert Level</h1>
+        <Flex direction={"column"} gap={"4"}>
+          <h1 className="text-white text-3xl font-bold">Indaboski(Expert Level)</h1>
+          <Image src={"/images/Abidosaker.jpeg"} width={300} height={300} alt="Indaboski" />
           <p className="text-white text-xl">
             Here, you'll face off against the best of the best, where every move
             counts and every decision shapes the outcome. If you emerge
@@ -154,9 +146,9 @@ export default function Levels() {
             rightful place among the chess elite?
           </p>
           <Button className="w-48 bg-white text-gray-900 hover:text-white hover:border-white hover:border text-xl font-bold"
-          onClick={()=>{
-            createGame(3)
-          }}
+            onClick={() => {
+              createGame(3)
+            }}
           >
             Play
           </Button>
@@ -166,13 +158,10 @@ export default function Levels() {
     default:
       content = (
         <Flex maxWidth={"650px"} direction="column" gap={"4"}>
-          <div>
-            <Image
-              src={"/images/chess.jpeg"}
-              alt="Chess"
-              height={250}
-              width={650}
-              className="rounded-lg"
+          <div className="h-[350px] w-full">
+            <LiteYouTubeEmbed
+              id={"fKxG8KjH1Qg"}
+              title={"How to Play Chess"}
             />
           </div>
 
@@ -181,6 +170,7 @@ export default function Levels() {
               "Chess is a two-player strategy board game that is believed to have originated in India in the 6th century AD. The game is played on an 8x8 grid and is one of the most popular games in the world."
             }
           </p>
+
           <div className="h-[350px] w-full">
             <LiteYouTubeEmbed
               id={"fKxG8KjH1Qg"}
@@ -201,42 +191,43 @@ export default function Levels() {
             </div>
           </div>
           <div className="bg-gray-900 p-6 rounded-lg shadow-lg">
+            <div
+              className="flex items-center gap-3 bg-gray-800 hover:bg-gray-700 transition-colors rounded-lg p-4 mb-4"
+              onClick={() => setLevel(0)}
+            >
+              <BaselineIcon className="h-8 w-8 text-white" />
+              <span className="text-white font-medium">How to play</span>
+            </div>
             <h2 className="text-2xl font-bold text-white mb-4">Levels</h2>
             <div className="grid grid-cols-2 md:grid-cols-1 gap-4">
-              <div
-                className="flex items-center gap-3 bg-gray-800 hover:bg-gray-700 transition-colors rounded-lg p-4"
-                onClick={() => setLevel(0)}
-              >
-                <BaselineIcon className="h-8 w-8 text-white" />
-                <span className="text-white font-medium">How to play</span>
-              </div>
+
               <div
                 className="flex items-center gap-3 bg-gray-800 hover:bg-gray-700 transition-colors rounded-lg p-4"
                 onClick={() => setLevel(1)}
               >
-                <BaselineIcon className="h-8 w-8 text-white" />
-                <span className="text-white font-medium">Beginner</span>
+                <Image src={"/images/gandusa-gandusa.jpeg"} width={32} height={32} alt="abidoshaker" />
+                <span className="text-white font-medium">Abidoshaker</span>
               </div>
               <div
                 className="flex items-center gap-3 bg-gray-800 hover:bg-gray-700 transition-colors rounded-lg p-4"
                 onClick={() => setLevel(2)}
               >
-                <SignalMediumIcon className="h-8 w-8 text-white" />
-                <span className="text-white font-medium">Intermediate</span>
+                <Image src={"/images/lemasepre.jpeg"} width={32} height={32} alt="GandukaGandusa" />
+                <span className="text-white font-medium">GandukaGandusa</span>
               </div>
               <div
                 className="flex items-center gap-3 bg-gray-800 hover:bg-gray-700 transition-colors rounded-lg p-4"
                 onClick={() => setLevel(3)}
               >
-                <ForwardIcon className="h-8 w-8 text-white" />
-                <span className="text-white font-medium">Advanced</span>
+                <Image src={"/images/pahose.jpeg"} width={32} height={32} alt="Lamante" />
+                <span className="text-white font-medium">Lamante</span>
               </div>
               <div
                 className="flex items-center gap-3 bg-gray-800 hover:bg-gray-700 transition-colors rounded-lg p-4"
                 onClick={() => setLevel(4)}
               >
-                <UserIcon className="h-8 w-8 text-white" />
-                <span className="text-white font-medium">Expert</span>
+                <Image src={"/images/Abidosaker.jpeg"} width={32} height={32} alt="Indaboski" />
+                <span className="text-white font-medium">Indaboski</span>
               </div>
             </div>
           </div>
