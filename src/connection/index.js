@@ -1,26 +1,28 @@
 "use client";
 
 import { createWeb3Modal, defaultConfig } from "@web3modal/ethers/react";
-import { Inter, Montserrat } from "next/font/google";
 
-export const SUPPORTED_CHAIN = 11155111;
+export const SUPPORTED_CHAIN = 4202;
 
-export const BASE_SEPOLIA_ID = 84532;
-export const SEPOLIA_ID = 11155111;
-export const OPTIMISM_SEPOLIA_ID = 11155420;
-const montserrat = Montserrat({ subsets: ["latin"] });
+export const SEPOLIA_ID = 4202;
 
-const Sepolia = {
+
+
+const LiskSepolia = {
   chainId: SEPOLIA_ID,
-  name: "Sepolia",
+  name: "Lisk sepolia",
   currency: "ETH",
-  explorerUrl: "https://sepolia.etherscan.io/",
+  explorerUrl: "https://sepolia-blockscout.lisk.com",
   rpcUrl: process.env.NEXT_PUBLIC_SEPOLIA_RPC_URL,
 };
 
 const metadata = {
-  name: "PolySwap",
-  description: "My Website description",
+  name: "ChessUp: Strategy Meets the Blockchain",
+  description:  `In the world of digital board games, OnChain Chess stands out by
+  integrating the timeless game of chess with the cutting-edge
+  technology of blockchain. This is not just a game; it&apos;s an
+  experience, a community, and a new chapter in the world of
+  decentralized gaming.`,
   url: "https://mywebsite.com", // origin must match your domain & subdomain
   icons: ["https://avatars.mywebsite.com/"],
 };
@@ -33,7 +35,7 @@ const metadata = {
 export const configureWeb3Modal = () =>
 createWeb3Modal({
   ethersConfig: defaultConfig({ metadata }),
-  chains: [Sepolia],
+  chains: [LiskSepolia],
   projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
   enableAnalytics: false, // Optional - defaults
   themeVariables: {

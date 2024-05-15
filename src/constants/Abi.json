@@ -1,0 +1,247 @@
+[
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_trustedForwarder",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+    },
+    {
+        "inputs": [],
+        "name": "Chess__GameDoesNotExist",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "Chess__GameEnded",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "Chess__InvalidMove",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "Chess__NotAParticipant",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "Chess__NotAuthorized",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "enum Chess.GameType",
+                "name": "_mode",
+                "type": "uint8"
+            },
+            {
+                "internalType": "address",
+                "name": "_participant",
+                "type": "address"
+            },
+            {
+                "internalType": "enum Chess.BotLevel",
+                "name": "_bot",
+                "type": "uint8"
+            }
+        ],
+        "name": "createGame",
+        "outputs": [
+            {
+                "internalType": "bytes32",
+                "name": "_gameId",
+                "type": "bytes32"
+            }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "bytes32",
+                "name": "_gameId",
+                "type": "bytes32"
+            },
+            {
+                "internalType": "enum Chess.GameStatus",
+                "name": "_status",
+                "type": "uint8"
+            },
+            {
+                "internalType": "string",
+                "name": "_tokenUri",
+                "type": "string"
+            },
+            {
+                "internalType": "address",
+                "name": "_winner",
+                "type": "address"
+            }
+        ],
+        "name": "endGame",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "bytes32",
+                "name": "_gameId",
+                "type": "bytes32"
+            }
+        ],
+        "name": "getGame",
+        "outputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "enum Chess.GameType",
+                        "name": "mode",
+                        "type": "uint8"
+                    },
+                    {
+                        "internalType": "address[2]",
+                        "name": "participants",
+                        "type": "address[2]"
+                    },
+                    {
+                        "internalType": "enum Chess.BotLevel",
+                        "name": "bot",
+                        "type": "uint8"
+                    },
+                    {
+                        "internalType": "enum Chess.GameStatus",
+                        "name": "status",
+                        "type": "uint8"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "winner",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "turn",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "board",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "white",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "black",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "createdAt",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "bool",
+                        "name": "gameExists",
+                        "type": "bool"
+                    }
+                ],
+                "internalType": "struct Chess.Game",
+                "name": "_game",
+                "type": "tuple"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "forwarder",
+                "type": "address"
+            }
+        ],
+        "name": "isTrustedForwarder",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "bytes32",
+                "name": "_gameId",
+                "type": "bytes32"
+            },
+            {
+                "internalType": "string",
+                "name": "_fen",
+                "type": "string"
+            },
+            {
+                "internalType": "uint8",
+                "name": "_halfMove",
+                "type": "uint8"
+            },
+            {
+                "internalType": "string",
+                "name": "_move",
+                "type": "string"
+            }
+        ],
+        "name": "move",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "bytes32",
+                "name": "",
+                "type": "bytes32"
+            },
+            {
+                "internalType": "uint8",
+                "name": "",
+                "type": "uint8"
+            },
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "name": "s_moves",
+        "outputs": [
+            {
+                "internalType": "string",
+                "name": "",
+                "type": "string"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    }
+]
