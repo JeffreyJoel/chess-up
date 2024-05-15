@@ -1,36 +1,81 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+# Project Title
 
-First, run the development server:
+## chessUp
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+![abidoshaker](https://github.com/PhantomOz/chessop_contract/assets/90451195/57181d05-2d8d-45dc-8f81-72746555db4f)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Overview
+Welcome to ChessUp,our decentralized chess game built on the Lisk Superchain. This project leverages the power of smart contracts to bring the classic game of chess into the digital realm, offering a unique blend of tradition and innovation. Whether you're a seasoned strategist looking for a new challenge or a beginner eager to learn, our platform caters for your skills with its engaging gameplay
+## Features
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+* Single Player Mode: Compete against a sophisticated AI opponent at three difficulty levels: AbidoShaker, GandukaGandusa, and Lamante.
+* Multiplayer Mode: Engage in thrilling matches against fellow players, testing your skills against human opponents.
+* Staking: Participate in games by staking tokens, with potential rewards based on the outcome of your matches.
+* Meta Transactions: Utilize ERC2771Context for reduced gas costs, making it easier and more affordable to join games.
+* Game Management: Create, join, and manage your games effortlessly, with clear indicators of game status.
+* Detailed Game History: Review past moves and understand the strategic decisions that led to victory or defeat.
+## Usage
+### Creating a New Game
 
-## Learn More
+* Connect your wallet to the application.
+* Select the game type (Single Player or Multiplayer).
+* For Single Player, choose the bot level. For Multiplayer, enter the opponent's Ethereum address.
+* Confirm the transaction to create the game.
 
-To learn more about Next.js, take a look at the following resources:
+### Making Moves
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+* Ensure it's your turn by checking the game status.
+* Enter the Forsyth-Edwards Notation (FEN) string representing the board state after your move.
+* Submit the half-move clock and the move itself.
+* Confirm the transaction to record your move.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### Ending a Game
 
-## Deploy on Vercel
+* When it's your turn, decide whether to continue playing or end the game.
+* Clicking the endGame button and specify the game's final status which is Resign or Checkmate.
+* if you Checkmate an NFT will be minted to your address
+* Confirm the transaction to finalize the game.
+  
+## Documentation
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+[Click here for a technical documentation of the chessOP game contracts](https://app.gitbook.com/o/UagPAFrFmRae2kiEmzji/s/3qFkCFescvySAZg69DMV/)
+  
+## Tools
+* [Foundry](https://book.getfoundry.sh/)
+*  [Solidity](https://soliditylang.org/)
+* [Nextjs](https://nextjs.org/)
+* [Typescript](https://www.typescriptlang.org/)
+* [Gelato](https://www.gelato.network/)
+* [NfTStorage](https://nft.storage/)
+  
+## Frontend
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+[You Can Find The ChessUp Frontend here](https://github.com/JeffreyJoel/chess-up) 
+
+  
+## Contributing
+
+Contributions to improve the game experience, enhance security, or add new features are welcome. Please feel free to reach out to any of the team members
+
+## Future Plans
+
+As we move on from the hackathon we plan to add more functionalities like
+* improved gameplay
+* enabling the Stake Function where players can use our in game currency to play,stake and place wagers amongst themselves
+* taking the computation off Lisk and creating a sub-Chain to handle it so as to make the game seamless
+
+## Acknowledgements
+
+* Lisk Team
+* With Love From Team Chessup 
+
+
+[Jeffrey](https://github.com/JeffreyJoel) 
+
+ [Sogo](https://github.com/sogobanwo)
+ 
+ [Favor](https://github.com/PhantomOz)
+ 
+[Apollo](https://github.com/Apolloelephen)
