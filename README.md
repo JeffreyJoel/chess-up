@@ -1,7 +1,4 @@
-
-# Project Title
-
-## chessUp
+# ChessUp
 
 ![abidoshaker](https://github.com/PhantomOz/chessop_contract/assets/90451195/57181d05-2d8d-45dc-8f81-72746555db4f)
 
@@ -52,7 +49,7 @@ Welcome to ChessUp,our decentralized chess game built on the Lisk Superchain. Th
   
 ## Frontend
 
-[You Can Find The ChessUp Frontend here](https://github.com/JeffreyJoel/chess-up) 
+[You Can Find The ChessUp Smart Contract here]([https://github.com/PhantomOz/chessop_contract]) 
 
   
 ## Contributing
