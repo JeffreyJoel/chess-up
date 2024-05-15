@@ -1,7 +1,7 @@
 "use client"
 import Fen from "chess-fen/dist/Fen";
 import Square from "../../../components/Square";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { BOARD_CONTENT, BoardContent } from "chess-fen";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 
