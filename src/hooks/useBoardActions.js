@@ -11,18 +11,19 @@ function useBoardActions(
   Checkmate,
   Capture,
   Move,
-  Illegal
+  Illegal,
+  moves,
+  setMoves
 ) {
   function handleMoves(_fro, _to) {
     // console.log(_fro, _to);
     const from = _fro;
     const to = _to;
     const capt = board.isEmpty(to);
-    console.log(boardEngine);
+    // console.log(boardEngine);
     try {
       if (boardEngine.move(from, to)) {
         let farr = getFen(boardEngine.board.configuration);
-        // console.log(farr)
         setPieces(new Fen(farr));
 
         if (boardEngine.board.configuration.checkMate) {
@@ -34,9 +35,18 @@ function useBoardActions(
         } else {
           Move.current.play();
         }
-        // if (boardEngine.board.configuration.turn === "black") {
-        //     nextMove();
-        // }
+
+        console.log(boardEngine.board.history.length);
+        let move = moves;
+        if (
+          move[parseInt((boardEngine.board.history.length - 1) / 2)] !==
+          undefined
+        ) {
+          move[parseInt((boardEngine.board.history.length - 1) / 2)].push(_to);
+        } else {
+          move[parseInt((boardEngine.board.history.length - 1) / 2)] = [_to];
+        }
+        setMoves(move);
         setDElement(undefined);
       }
     } catch (error) {
