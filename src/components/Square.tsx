@@ -52,16 +52,9 @@ export default function Square({ piece, index, draggedElement, setDElement, boar
         setCursor("cursor-grabbing");
     };
     function handleOnDrop(e: any) {
-        console.log("droped");
         e.preventDefault();
-        // console.log(isValidMove(draggedElement, index));
-        // if (draggedElement && isValidMove(draggedElement, index, board, `${rows[idNum]}${row}`)) {
-        //     const from = draggedElement[2].id.split("-")[0];
-        //     setPieces(board.clear(from).update(`${rows[idNum]}${row}`, BOARD_CONTENT[draggedElement[1] as BoardContent]));
-        //     setDElement(undefined);
-        // }
+
         if (draggedElement) {
-            console.log(draggedElement);
             boardActions.handleMoves(draggedElement[2].id.split("-")[0], `${rows[idNum]}${row}`);
         }
     }

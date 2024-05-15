@@ -10,7 +10,7 @@ import { Game } from "js-chess-engine";
 
 export default function Arena() {
     const [draggedElement, setDElement] = useState<[EventTarget, BoardContent, HTMLDivElement]>();
-    const [turn, setTurn] = useState<boolean>(false);
+    const [moves, setMoves] = useState<string[][]>(new Array(100));
     const [pieces, setPieces] = useState<Fen>(new Fen(Fen.startingPosition));
     const Move = useRef<any>();
     const Illegal = useRef<any>();
@@ -18,12 +18,12 @@ export default function Arena() {
     const Check = useRef<any>();
     const Checkmate = useRef<any>();
     const [boardEngine, setBoardEngine] = useState<Game>(new Game());
-    const [BoardActions, setBoardActions] = useState(useBoardActions(boardEngine, pieces, setPieces, setDElement, Check, Checkmate, Capture, Move, Illegal));
+    const [BoardActions, setBoardActions] = useState(useBoardActions(boardEngine, pieces, setPieces, setDElement, Check, Checkmate, Capture, Move, Illegal, moves, setMoves));
 
     useEffect(() => {
         if (draggedElement === undefined) {
             if (boardEngine.board.configuration.turn === "black" && !boardEngine.board.configuration.checkMate) {
-                setTimeout(() => { BoardActions.nextMove(); }, 1000)
+                setTimeout(() => { BoardActions.nextMove(); console.log(moves) }, 1000)
             }
         }
     }, [BoardActions, boardEngine.board.configuration.checkMate, boardEngine.board.configuration.turn, draggedElement]);
