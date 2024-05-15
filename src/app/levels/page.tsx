@@ -14,6 +14,7 @@ import {
   useWeb3ModalProvider,
 } from "@web3modal/ethers/react";
 import { useRouter } from "next/navigation";
+import useGaslessChess from "../../hooks/useGaslessChess";
 
 export default function Levels() {
   const [level, setLevel] = useState(0);
@@ -27,19 +28,21 @@ export default function Levels() {
 
   const readWriteProvider = getProvider(walletProvider);
 
-  const createGame = async (level: Number) => {
-    const signer = readWriteProvider
-      ? await readWriteProvider.getSigner()
-      : null;
-    const contract = getChessUpContract(signer);
+  const {createGame} = useGaslessChess()
 
-    const tx = await contract.createGame(0, address, level);
-    const receipt = await tx.wait()
+  const hangleCreateGame = async (level: Number) => {
+    // const signer = readWriteProvider
+    //   ? await readWriteProvider.getSigner()
+    //   : null;
+    // const contract = getChessUpContract(signer);
 
-    console.log(receipt);
-    if (receipt.status === 1) {
-      router.push(`/play/${receipt.hash}?level=${level}`)
-    }
+    const tx = await createGame(0, address, level);
+    
+
+    console.log(tx);
+    // if (tx?.status === 1) {
+    //   router.push(`/play/${tx.logs[0].topics[3]}?level=${level}`)
+    // }
 
   };
 
@@ -76,7 +79,7 @@ export default function Levels() {
           <Button
             className="w-48 bg-white hover:text-white hover:border-white hover:border  text-gray-900 text-xl font-bold"
             onClick={() => {
-              createGame(0);
+              hangleCreateGame(0);
             }}
           >
             Play
@@ -100,7 +103,7 @@ export default function Levels() {
           <Button
             className="w-48 bg-white hover:text-white hover:border-white hover:border  text-gray-900 text-xl font-bold"
             onClick={() => {
-              createGame(1);
+              hangleCreateGame(1);
             }}
           >
             Play
@@ -124,7 +127,7 @@ export default function Levels() {
           <Button
             className="w-48 bg-white text-gray-900 hover:text-white  text-xl hover:border-white hover:border  font-bold"
             onClick={() => {
-              createGame(2);
+              hangleCreateGame(2);
             }}
           >
             Play

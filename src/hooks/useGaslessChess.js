@@ -10,20 +10,25 @@ import {
   useWeb3ModalAccount,
   useWeb3ModalProvider,
 } from "@web3modal/ethers/react";
+import { getProvider } from "@/constants/providers";
 
 const relay = new GelatoRelay();
 
 // Set up on-chain variables, such as target address
-const CONTRACT_ADDRESS = `"${process.env.NEXT_PUBLIC_CONTRACT_ADDRESS}`;
+const CONTRACT_ADDRESS = `${process.env.NEXT_PUBLIC_CONTRACT_ADDRESS}`;
 const API_KEY = `${process.env.NEXT_PUBLIC_GELATO_API_KEY}`;
 
 function useGaslessChess() {
   const { walletProvider } = useWeb3ModalProvider();
   const { address } = useWeb3ModalAccount();
+  const readWriteProvider = getProvider(walletProvider);
 
   async function createGame(_mode, _participant, _bot) {
     const provider = getProvider(walletProvider);
-    const signer = await provider.getSigner();
+    // const signer = await provider.getSigner();
+        const signer = readWriteProvider
+      ? await readWriteProvider.getSigner()
+      : null;
 
     const contract = new ethers.Contract(CONTRACT_ADDRESS, abi, signer);
 
