@@ -1,13 +1,19 @@
 "use client"
 import Fen from "chess-fen/dist/Fen";
-import Square from "../../components/Square";
+import Square from "../../../components/Square";
 import { useEffect, useState } from "react";
 import { BOARD_CONTENT, BoardContent } from "chess-fen";
+import { useParams } from "next/navigation";
 
 export default function Arena() {
     const [draggedElement, setDElement] = useState<[EventTarget, BoardContent, HTMLDivElement]>();
     const [turn, setTurn] = useState<boolean>(false);
     const [pieces, setPieces] = useState<Fen>(new Fen(Fen.startingPosition));
+    const params = useParams<{ id: string }>();
+    const gameType = params;
+
+    console.log(gameType);
+    
 
     // useEffect(() => {
     //     if (draggedElement === undefined) {
