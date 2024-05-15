@@ -43,10 +43,11 @@ export default function Levels() {
 
     console.log(receipt);
     if (receipt.status === 1) {
-      toast.remove(loadingToast1)
-      toast.success(`Redirecting to Created Game`)
+      
 
       router.push(`/play/${receipt.hash}?level=${level}`)
+      toast.remove(loadingToast1)
+      toast.success(`Redirecting to Created Game`)
     }else{
       toast.remove(loadingToast1)
       toast.error("Error creating game")
