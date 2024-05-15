@@ -1,5 +1,5 @@
 import { ethers } from "ethers";
-import Abi from "./abi.json";
+import Abi from "./Abi.json";
 
 
 export const getChessUpContract = (providerOrSigner) =>
