@@ -1,17 +1,53 @@
 "use client"
 import Fen from "chess-fen/dist/Fen";
 import Square from "../../../components/Square";
-import { useEffect, useRef, useState } from "react";
-import { BoardContent } from "chess-fen";
+import { useEffect, useState, useRef } from "react";
+import { BOARD_CONTENT, BoardContent } from "chess-fen";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
+
 import useBoardActions from "../../../hooks/useBoardActions";
 import { Game } from "js-chess-engine";
-
 
 
 export default function Arena() {
     const [draggedElement, setDElement] = useState<[EventTarget, BoardContent, HTMLDivElement]>();
     const [moves, setMoves] = useState<string[][]>(new Array(100));
     const [pieces, setPieces] = useState<Fen>(new Fen(Fen.startingPosition));
+    const params = useParams<{ id: string }>();
+    const gameType = params;
+    console.log(gameType)
+
+    console.log(gameType);
+    const searchParams = useSearchParams()
+    const queryValue = searchParams.get("level");
+    let level;
+    console.log(queryValue)
+
+    switch (Number(queryValue)) {
+        case 0:
+          level = "AbidoShaker";
+          break;
+        case 1:
+          level = "GandukaGandusa";
+          break;
+        case 2:
+          level = "Lamante";
+          break;
+        case 3:
+          level = "Indaboski";
+          break;
+        default:
+          level = "Unknown Player"; // or some other default value
+      }
+    // useEffect(() => {
+    //     if (draggedElement === undefined) {
+    //         if (turn) {
+    //             // setPieces(new);
+    //             setPieces(new Fen().clear("e2").update("e4", BOARD_CONTENT.P));
+    //             console.log(pieces.printBoard());
+    //         }
+    //     }
+    // }, [draggedElement]);
     const Move = useRef<any>();
     const Illegal = useRef<any>();
     const Capture = useRef<any>();
@@ -41,7 +77,7 @@ export default function Arena() {
                     <div className="flex flex-row w-[640px] gap-4 items-center border-b border-gray-300 bg-gradient-to-b from-[#111827] pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:rounded-t-xl lg:border lg:bg-[#1A2337] lg:p-4 lg:dark:bg-zinc-800/30">
                         <div className="border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-zinc-200 lg:p-4 lg:dark:bg-zinc-800/30"></div>
                         <div>
-                            <p className="text-white">AbidoShaker</p>
+                            <p className="text-white">{level}</p>
                             <div></div>
                         </div>
                     </div>
