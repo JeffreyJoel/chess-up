@@ -36,19 +36,19 @@ export default function Levels() {
 
   const hangleCreateGame = async (level: Number) => {
     const loadingToast1 = toast.loading('Creating Game..');
-    // const signer = readWriteProvider
-    //   ? await readWriteProvider.getSigner()
-    //   : null;
-    // const contract = getChessUpContract(signer);
+    const signer = readWriteProvider
+      ? await readWriteProvider.getSigner()
+      : null;
+    const contract = getChessUpContract(signer);
 
-    const tx = await createGame(0, address, level);
-    
+    const tx = await contract.createGame(0, address, level);
+    const receipt = tx.wait(); 
 
-    console.log(tx);
-    // if (tx?.status === 1) {
+    console.log(receipt);
+    if (receipt?.status === 1) {
       
 
-    //   router.push(`/play/${tx.logs[0].topics[3]}?level=${level}`)
+      router.push(`/play/${receipt.logs[0].topics[3]}?level=${level}`)
       toast.remove(loadingToast1)
       toast.success(`Redirecting to Created Game`)
     }else{
