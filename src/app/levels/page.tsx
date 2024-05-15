@@ -14,10 +14,14 @@ import {
   useWeb3ModalProvider,
 } from "@web3modal/ethers/react";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
+
 import useGaslessChess from "../../hooks/useGaslessChess";
 
 export default function Levels() {
   const [level, setLevel] = useState(0);
+  const [isLoading, setIsLoading]= useState(false)
+  
   let content;
 
   const router = useRouter()
@@ -31,6 +35,7 @@ export default function Levels() {
   const {createGame} = useGaslessChess()
 
   const hangleCreateGame = async (level: Number) => {
+    const loadingToast1 = toast.loading('Creating Game..');
     // const signer = readWriteProvider
     //   ? await readWriteProvider.getSigner()
     //   : null;
@@ -41,7 +46,14 @@ export default function Levels() {
 
     console.log(tx);
     // if (tx?.status === 1) {
+      
+
     //   router.push(`/play/${tx.logs[0].topics[3]}?level=${level}`)
+      toast.remove(loadingToast1)
+      toast.success(`Redirecting to Created Game`)
+    }else{
+      toast.remove(loadingToast1)
+      toast.error("Error creating game")
     // }
 
   };
@@ -81,6 +93,7 @@ export default function Levels() {
             onClick={() => {
               hangleCreateGame(0);
             }}
+            disabled={isLoading? true : false}
           >
             Play
           </Button>
@@ -105,6 +118,7 @@ export default function Levels() {
             onClick={() => {
               hangleCreateGame(1);
             }}
+            disabled={isLoading? true : false}
           >
             Play
           </Button>
@@ -129,6 +143,7 @@ export default function Levels() {
             onClick={() => {
               hangleCreateGame(2);
             }}
+            disabled={isLoading? true : false}
           >
             Play
           </Button>
@@ -152,6 +167,7 @@ export default function Levels() {
             onClick={() => {
               createGame(3)
             }}
+            disabled={isLoading? true : false}
           >
             Play
           </Button>
