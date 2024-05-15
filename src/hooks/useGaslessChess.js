@@ -6,20 +6,27 @@ import {
 } from "@gelatonetwork/relay-sdk";
 import abi from "../utils/abi.json";
 import { ethers } from "ethers";
+import {
+  useWeb3ModalAccount,
+  useWeb3ModalProvider,
+} from "@web3modal/ethers/react";
 
 const relay = new GelatoRelay();
 
 // Set up on-chain variables, such as target address
 const CONTRACT_ADDRESS = `"${process.env.NEXT_PUBLIC_CONTRACT_ADDRESS}`;
 const API_KEY = `${process.env.NEXT_PUBLIC_GELATO_API_KEY}`;
-const provider = new ethers.BrowserProvider(window.ethereum);
-const signer = await provider.getSigner();
-const user = await signer.getAddress();
-
-const contract = new ethers.Contract(CONTRACT_ADDRESS, abi, signer);
 
 function useGaslessChess() {
+  const { walletProvider } = useWeb3ModalProvider();
+  const { address } = useWeb3ModalAccount();
+
   async function createGame(_mode, _participant, _bot) {
+    const provider = getProvider(walletProvider);
+    const signer = await provider.getSigner();
+
+    const contract = new ethers.Contract(CONTRACT_ADDRESS, abi, signer);
+
     const { data } = await contract.createGame.populateTransaction(
       _mode,
       _participant,
@@ -31,7 +38,7 @@ function useGaslessChess() {
       chainId: (await provider.getNetwork()).chainId,
       target: CONTRACT_ADDRESS,
       data: data,
-      user: user,
+      user: address,
     };
 
     const relayResponse = await relay.sponsoredCallERC2771(
@@ -43,6 +50,11 @@ function useGaslessChess() {
   }
 
   async function move(_gameId, _fen, _halfMove, _move) {
+    const provider = getProvider(walletProvider);
+    const signer = await provider.getSigner();
+
+    const contract = new ethers.Contract(CONTRACT_ADDRESS, abi, signer);
+
     const { data } = await contract.createGame.populateTransaction(
       _gameId,
       _fen,
@@ -55,7 +67,7 @@ function useGaslessChess() {
       chainId: (await provider.getNetwork()).chainId,
       target: CONTRACT_ADDRESS,
       data: data,
-      user: user,
+      user: address,
     };
 
     const relayResponse = await relay.sponsoredCallERC2771(
@@ -67,6 +79,12 @@ function useGaslessChess() {
   }
 
   async function endGame(_gameId, _status, _tokenUri, _winner) {
+    const provider = getProvider(walletProvider);
+    const signer = await provider.getSigner();
+    const user = await signer.getAddress();
+
+    const contract = new ethers.Contract(CONTRACT_ADDRESS, abi, signer);
+
     const { data } = await contract.createGame.populateTransaction(
       _gameId,
       _status,
@@ -79,7 +97,7 @@ function useGaslessChess() {
       chainId: (await provider.getNetwork()).chainId,
       target: CONTRACT_ADDRESS,
       data: data,
-      user: user,
+      user: address,
     };
 
     const relayResponse = await relay.sponsoredCallERC2771(
@@ -92,3 +110,5 @@ function useGaslessChess() {
 
   return { createGame, move, endGame };
 }
+
+export default useGaslessChess;
