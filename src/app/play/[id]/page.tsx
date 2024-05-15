@@ -7,6 +7,7 @@ import { useParams, useRouter, useSearchParams } from "next/navigation";
 
 import useBoardActions from "../../../hooks/useBoardActions";
 import { Game } from "js-chess-engine";
+import { Button } from "@/components/ui/button";
 
 
 export default function Arena() {
@@ -25,29 +26,21 @@ export default function Arena() {
 
     switch (Number(queryValue)) {
         case 0:
-          level = "AbidoShaker";
-          break;
+            level = "AbidoShaker";
+            break;
         case 1:
-          level = "GandukaGandusa";
-          break;
+            level = "GandukaGandusa";
+            break;
         case 2:
-          level = "Lamante";
-          break;
+            level = "Lamante";
+            break;
         case 3:
-          level = "Indaboski";
-          break;
+            level = "Indaboski";
+            break;
         default:
-          level = "Unknown Player"; // or some other default value
-      }
-    // useEffect(() => {
-    //     if (draggedElement === undefined) {
-    //         if (turn) {
-    //             // setPieces(new);
-    //             setPieces(new Fen().clear("e2").update("e4", BOARD_CONTENT.P));
-    //             console.log(pieces.printBoard());
-    //         }
-    //     }
-    // }, [draggedElement]);
+            level = "Unknown Player"; // or some other default value
+    }
+
     const Move = useRef<any>();
     const Illegal = useRef<any>();
     const Capture = useRef<any>();
@@ -93,7 +86,17 @@ export default function Arena() {
                         </div>
                     </div>
                 </div>
-                <div className="bg-[#111827] w-[450px]"></div>
+                <div className="bg-[#111827] w-[450px] p-12">
+                    <h3 className="text-white">Moves</h3>
+                    <div className="h-[500px]">
+                        <table>
+                            <tbody>
+                                {moves.map((move, index) => <tr className="gap-5 flex flex-row " key={index}> <td className="text-white font-semibold italic">{index + 1}. </td>{move?.map((mov, i) => <td className="text-white font-semibold italic" key={`${index}${i}`}>{mov}</td>)}</tr>)}
+                            </tbody>
+                        </table>
+                    </div>
+                    <Button className="btn bg-red-600 border-gray-300 w-full">Resign</Button>
+                </div>
             </div>
         </main>
     );
