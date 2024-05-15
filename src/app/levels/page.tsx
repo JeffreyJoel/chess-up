@@ -14,9 +14,13 @@ import {
   useWeb3ModalProvider,
 } from "@web3modal/ethers/react";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
+
 
 export default function Levels() {
   const [level, setLevel] = useState(0);
+  const [isLoading, setIsLoading]= useState(false)
+  
   let content;
 
   const router = useRouter()
@@ -28,6 +32,7 @@ export default function Levels() {
   const readWriteProvider = getProvider(walletProvider);
 
   const createGame = async (level: Number) => {
+    const loadingToast1 = toast.loading('Creating Game..');
     const signer = readWriteProvider
       ? await readWriteProvider.getSigner()
       : null;
@@ -38,7 +43,13 @@ export default function Levels() {
 
     console.log(receipt);
     if (receipt.status === 1) {
+      toast.remove(loadingToast1)
+      toast.success(`Redirecting to Created Game`)
+
       router.push(`/play/${receipt.hash}?level=${level}`)
+    }else{
+      toast.remove(loadingToast1)
+      toast.error("Error creating game")
     }
 
   };
@@ -78,6 +89,7 @@ export default function Levels() {
             onClick={() => {
               createGame(0);
             }}
+            disabled={isLoading? true : false}
           >
             Play
           </Button>
@@ -102,6 +114,7 @@ export default function Levels() {
             onClick={() => {
               createGame(1);
             }}
+            disabled={isLoading? true : false}
           >
             Play
           </Button>
@@ -126,6 +139,7 @@ export default function Levels() {
             onClick={() => {
               createGame(2);
             }}
+            disabled={isLoading? true : false}
           >
             Play
           </Button>
@@ -149,6 +163,7 @@ export default function Levels() {
             onClick={() => {
               createGame(3)
             }}
+            disabled={isLoading? true : false}
           >
             Play
           </Button>
