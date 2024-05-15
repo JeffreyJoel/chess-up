@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 "use client";
 import Footer from "@/components/common/Footer";
 import { SVGProps, useState } from "react";
@@ -50,6 +51,7 @@ export default function Levels() {
             <LiteYouTubeEmbed
               id={"fKxG8KjH1Qg"}
               title={"How to Play Chess"}
+
             />
           </div>
           <p className="text-white text-xl">
@@ -168,6 +170,13 @@ export default function Levels() {
               "Chess is a two-player strategy board game that is believed to have originated in India in the 6th century AD. The game is played on an 8x8 grid and is one of the most popular games in the world."
             }
           </p>
+
+          <div className="h-[350px] w-full">
+            <LiteYouTubeEmbed
+              id={"fKxG8KjH1Qg"}
+              title={"How to Play Chess"}
+            />
+          </div>
         </Flex>
       );
   }
