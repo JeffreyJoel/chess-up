@@ -1,9 +1,9 @@
 "use client"
 import Fen from "chess-fen/dist/Fen";
-import Square from "../../components/Square";
+import Square from "../../../components/Square";
 import { useEffect, useRef, useState } from "react";
 import { BoardContent } from "chess-fen";
-import useBoardActions from "../../hooks/useBoardActions";
+import useBoardActions from "../../../hooks/useBoardActions";
 import { Game } from "js-chess-engine";
 
 
