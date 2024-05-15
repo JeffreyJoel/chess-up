@@ -7,9 +7,12 @@ import { useParams, useRouter, useSearchParams } from "next/navigation";
 
 import useBoardActions from "../../../hooks/useBoardActions";
 import { Game } from "js-chess-engine";
+import { useWeb3ModalAccount } from "@web3modal/ethers/react";
+import Image from "next/image";
 
 
 export default function Arena() {
+    const {address} = useWeb3ModalAccount()
     const [draggedElement, setDElement] = useState<[EventTarget, BoardContent, HTMLDivElement]>();
     const [moves, setMoves] = useState<string[][]>(new Array(100));
     const [pieces, setPieces] = useState<Fen>(new Fen(Fen.startingPosition));
@@ -21,20 +24,25 @@ export default function Arena() {
     const searchParams = useSearchParams()
     const queryValue = searchParams.get("level");
     let level;
+    let pics
     console.log(queryValue)
 
     switch (Number(queryValue)) {
         case 0:
           level = "AbidoShaker";
+          pics = "/images/gandusa-gandusa.jpeg"
           break;
         case 1:
           level = "GandukaGandusa";
+          pics = "/images/lemasepre.jpeg"
           break;
         case 2:
           level = "Lamante";
+          pics = "/images/pahose.jpeg"
           break;
         case 3:
           level = "Indaboski";
+          pics = "/images/Abidosaker.jpeg"
           break;
         default:
           level = "Unknown Player"; // or some other default value
@@ -75,7 +83,7 @@ export default function Arena() {
                     <audio ref={Check} src="/sound/move-check.mp3" />
                     <audio ref={Checkmate} src="/sound/game-end.webm" />
                     <div className="flex flex-row w-[640px] gap-4 items-center border-b border-gray-300 bg-gradient-to-b from-[#111827] pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:rounded-t-xl lg:border lg:bg-[#1A2337] lg:p-4 lg:dark:bg-zinc-800/30">
-                        <div className="border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-zinc-200 lg:p-4 lg:dark:bg-zinc-800/30"></div>
+                       <Image src={pics} width={24} height={24} alt="levels" />
                         <div>
                             <p className="text-white">{level}</p>
                             <div></div>
@@ -88,7 +96,7 @@ export default function Arena() {
                     <div className="flex flex-row w-[640px] gap-4 items-center border-b border-gray-300 bg-gradient-to-b from-[#111827] pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:rounded-b-xl lg:border lg:bg-[#1A2337] lg:p-4 lg:dark:bg-zinc-800/30">
                         <div className="border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30"></div>
                         <div>
-                            <p className="text-white">0x123uifdriew9w9wq0q9wqw</p>
+                            <p className="text-white">{address}</p>
                             <div></div>
                         </div>
                     </div>
