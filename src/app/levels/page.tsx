@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 "use client";
 import Footer from "@/components/common/Footer";
 import { SVGProps, useState } from "react";
