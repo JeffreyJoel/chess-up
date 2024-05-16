@@ -16,6 +16,7 @@ import {
 import { useRouter } from "next/navigation";
 import useGaslessChess from "@/hooks/useGaslessChess";
 import { ethers } from "ethers";
+import Loading from "@/components/common/Loading";
 
 export default function Levels() {
   const [level, setLevel] = useState(0);
@@ -30,22 +31,13 @@ export default function Levels() {
   const readWriteProvider = getProvider(walletProvider);
 
   const gaslessChess = useGaslessChess();
+  const [loader, setLoader] = useState(false);
 
   const createGame = async (level: Number) => {
-    // const signer = readWriteProvider
-    //   ? await readWriteProvider.getSigner()
-    //   : null;
-    // const contract = getChessUpContract(signer);
 
-    // const tx = await contract.createGame(0, address, level);
-    // const receipt = await tx.wait()
-
-    // console.log(receipt);
-    // if (receipt.status === 1) {
-    //   router.push(`/play/${receipt.hash}?level=${level}`)
-    // }
-
-    await gaslessChess.createGame(0, ethers.ZeroAddress, level);
+   const isLoading =  await gaslessChess.createGame(0, ethers.ZeroAddress, level);
+   setLoader(isLoading);
+  //  console.log(loading);  
   };
 
   switch (level) {
@@ -197,7 +189,7 @@ export default function Levels() {
           </div>
           <div className="bg-gray-900 p-6 rounded-lg shadow-lg">
             <div
-              className="flex items-center gap-3 bg-gray-800 hover:bg-gray-700 transition-colors rounded-lg p-4 mb-4"
+              className="flex items-center gap-3 bg-gray-800 hover:bg-gray-700 transition-colors rounded-lg p-4 cursor-pointer mb-4"
               onClick={() => setLevel(0)}
             >
               <BaselineIcon className="h-8 w-8 text-white" />
@@ -207,28 +199,28 @@ export default function Levels() {
             <div className="grid grid-cols-2 md:grid-cols-1 gap-4">
 
               <div
-                className="flex items-center gap-3 bg-gray-800 hover:bg-gray-700 transition-colors rounded-lg p-4"
+                className="flex items-center gap-3 bg-gray-800 hover:bg-gray-700 transition-colors rounded-lg p-4 cursor-pointer"
                 onClick={() => setLevel(1)}
               >
                 <Image src={"/images/gandusa-gandusa.jpeg"} width={32} height={32} alt="abidoshaker" />
                 <span className="text-white font-medium">Abidoshaker</span>
               </div>
               <div
-                className="flex items-center gap-3 bg-gray-800 hover:bg-gray-700 transition-colors rounded-lg p-4"
+                className="flex items-center gap-3 bg-gray-800 hover:bg-gray-700 transition-colors rounded-lg p-4 cursor-pointer"
                 onClick={() => setLevel(2)}
               >
                 <Image src={"/images/lemasepre.jpeg"} width={32} height={32} alt="GandukaGandusa" />
                 <span className="text-white font-medium">GandukaGandusa</span>
               </div>
               <div
-                className="flex items-center gap-3 bg-gray-800 hover:bg-gray-700 transition-colors rounded-lg p-4"
+                className="flex items-center gap-3 bg-gray-800 hover:bg-gray-700 transition-colors rounded-lg p-4 cursor-pointer"
                 onClick={() => setLevel(3)}
               >
                 <Image src={"/images/pahose.jpeg"} width={32} height={32} alt="Lamante" />
                 <span className="text-white font-medium">Lamante</span>
               </div>
               <div
-                className="flex items-center gap-3 bg-gray-800 hover:bg-gray-700 transition-colors rounded-lg p-4"
+                className="flex items-center gap-3 bg-gray-800 hover:bg-gray-700 transition-colors rounded-lg p-4 cursor-pointer"
                 onClick={() => setLevel(4)}
               >
                 <Image src={"/images/Abidosaker.jpeg"} width={32} height={32} alt="Indaboski" />
@@ -243,6 +235,7 @@ export default function Levels() {
         <div className="fixed bottom-0 left-0 w-full bg-gradient-to-r from-[#1a2a6c] to-[#b21f1f] h-0.5 opacity-2" />
       </div>
       <Footer />
+      {loader &&<Loading text="Creating Your Arena"/>}
     </>
   );
 }

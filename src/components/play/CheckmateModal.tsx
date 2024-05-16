@@ -1,50 +1,36 @@
-// /* eslint-disable react/no-unescaped-entities */
-// import React from "react";
-// import { Button } from "@/components/ui/button";
-// import {
-//   Dialog,
-//   DialogContent,
-//   DialogDescription,
-//   DialogFooter,
-//   DialogHeader,
-//   DialogTitle,
-//   DialogTrigger,
-// } from "@/components/ui/dialog";
+/* eslint-disable react/no-unescaped-entities */
+import React, { useState } from "react";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import Image from "next/image";
+import checkmate from "../../../public/images/checkmate.jpg";
 
+interface CheckmateModalProps {
+  level: String;
+}
 
-// interface CheckmateModalProps {
-//     level:String,
-    
-// }
+const CheckmateModal = ({ isOpen }: { isOpen?: boolean }) => {
+    const [open, setOpen] = useState(true);
+  return (
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogContent className="sm:max-w-[425px] bg-foreground text-background">
+        <DialogHeader>
+        </DialogHeader>
+        <h3 className="text-3xl text-center">Checkmate!!!</h3>
+        <div className="py-4">
+          <Image src={checkmate} alt="" priority/>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+};
 
-// const CheckmateModal = () => {
-//     const [open, setOpen] = useState(false);
-
-//     function openModal(){
-//         setOpen(false)
-//       }
-
-//   return (
-//     <Dialog>
-//       <DialogTrigger asChild>
-//         <Button variant="outline">Edit Profile</Button>
-//       </DialogTrigger>
-//       <DialogContent className="sm:max-w-[425px]">
-//         <DialogHeader>
-//           <DialogTitle>You won!!</DialogTitle>
-//           <DialogDescription>
-//             Make changes to your profile here. Click save when you're done.
-//           </DialogDescription>
-//         </DialogHeader>
-//         <div className="grid gap-4 py-4">
-     
-//         </div>
-//         <DialogFooter>
-//           <Button type="submit">Save changes</Button>
-//         </DialogFooter>
-//       </DialogContent>
-//     </Dialog>
-//   );
-// };
-
-// export default CheckmateModal;
+export default CheckmateModal;

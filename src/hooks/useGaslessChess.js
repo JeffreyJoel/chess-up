@@ -28,7 +28,7 @@ const API_KEY = `${process.env.NEXT_PUBLIC_GELATO_API_KEY}`;
 function useGaslessChess() {
   const { walletProvider } = useWeb3ModalProvider();
   const { address } = useWeb3ModalAccount();
-
+  const [loading, setLoading] = useState(false);
   const provider = getProvider(walletProvider);
   const [signer, setSigner] = useState();
   const [contract, setContract] = useState();
@@ -44,31 +44,46 @@ function useGaslessChess() {
     setup();
   }, [provider]);
 
+
   async function createGame(_mode, _participant, _bot) {
-    const { data } = await contract.createGame.populateTransaction(
-      _mode,
-      _participant,
-      _bot
-    );
-
-    // Populate a relay request
-    const request = {
-      chainId: (await provider.getNetwork()).chainId,
-      target: CONTRACT_ADDRESS,
-      data: data,
-      user: address,
-    };
-
-    const relayResponse = await relay.sponsoredCallERC2771(
-      request,
-      provider,
-      API_KEY
-    );
-    console.log(relayResponse);
-    contract.on("GameCreated", (_player1, _player2, _gameId) => {
-      console.log(_player1, _player2, _gameId);
-      router.push(`/play/${_gameId}?level=${_bot}`);
-    });
+    let isLoading = true; // Initialize a local variable to track loading status
+  
+    try {
+      const { data } = await contract.createGame.populateTransaction(
+        _mode,
+        _participant,
+        _bot
+      );
+  
+      // Populate a relay request
+      const request = {
+        chainId: (await provider.getNetwork()).chainId,
+        target: CONTRACT_ADDRESS,
+        data: data,
+        user: address,
+      };
+  
+      const relayResponse = await relay.sponsoredCallERC2771(
+        request,
+        provider,
+        API_KEY
+      );
+      console.log(relayResponse);
+  
+      // Listen for GameCreated event
+      contract.on("GameCreated", (_player1, _player2, _gameId) => {
+        console.log(_player1, _player2, _gameId);
+        router.push(`/play/${_gameId}?level=${_bot}`);
+        isLoading = false; // Set loading to false upon successful completion
+      });
+    } catch (error) {
+      console.error(error);
+      isLoading = false; // Also set loading to false in case of an error
+    } finally {
+      console.log(isLoading); // Log the final loading state
+    }
+  
+    return isLoading; // Return the loading state
   }
 
   async function move(_gameId, _fen, _halfMove, _move) {
