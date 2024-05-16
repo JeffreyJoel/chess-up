@@ -16,9 +16,12 @@ import {
 import { useRouter } from "next/navigation";
 import useGaslessChess from "@/hooks/useGaslessChess";
 import { ethers } from "ethers";
+import toast from "react-hot-toast";
 
 export default function Levels() {
   const [level, setLevel] = useState(0);
+  const [isLoading, setIsLoading]= useState(false)
+  
   let content;
 
   const router = useRouter()
@@ -32,18 +35,6 @@ export default function Levels() {
   const gaslessChess = useGaslessChess();
 
   const createGame = async (level: Number) => {
-    // const signer = readWriteProvider
-    //   ? await readWriteProvider.getSigner()
-    //   : null;
-    // const contract = getChessUpContract(signer);
-
-    // const tx = await contract.createGame(0, address, level);
-    // const receipt = await tx.wait()
-
-    // console.log(receipt);
-    // if (receipt.status === 1) {
-    //   router.push(`/play/${receipt.hash}?level=${level}`)
-    // }
 
     await gaslessChess.createGame(0, ethers.ZeroAddress, level);
   };
@@ -81,8 +72,9 @@ export default function Levels() {
           <Button
             className="w-48 bg-white hover:text-white hover:border-white hover:border  text-gray-900 text-xl font-bold"
             onClick={() => {
-              createGame(0);
+              hangleCreateGame(0);
             }}
+            disabled={isLoading? true : false}
           >
             Play
           </Button>
@@ -105,8 +97,9 @@ export default function Levels() {
           <Button
             className="w-48 bg-white hover:text-white hover:border-white hover:border  text-gray-900 text-xl font-bold"
             onClick={() => {
-              createGame(1);
+              hangleCreateGame(1);
             }}
+            disabled={isLoading? true : false}
           >
             Play
           </Button>
@@ -129,8 +122,9 @@ export default function Levels() {
           <Button
             className="w-48 bg-white text-gray-900 hover:text-white  text-xl hover:border-white hover:border  font-bold"
             onClick={() => {
-              createGame(2);
+              hangleCreateGame(2);
             }}
+            disabled={isLoading? true : false}
           >
             Play
           </Button>
@@ -154,6 +148,7 @@ export default function Levels() {
             onClick={() => {
               createGame(3)
             }}
+            disabled={isLoading? true : false}
           >
             Play
           </Button>
@@ -346,4 +341,4 @@ function UserIcon(props: SVGProps<SVGSVGElement>) {
       <circle cx="12" cy="7" r="4" />
     </svg>
   );
-}
+}}
