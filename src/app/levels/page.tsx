@@ -14,6 +14,8 @@ import {
   useWeb3ModalProvider,
 } from "@web3modal/ethers/react";
 import { useRouter } from "next/navigation";
+import useGaslessChess from "@/hooks/useGaslessChess";
+import { ethers } from "ethers";
 
 export default function Levels() {
   const [level, setLevel] = useState(0);
@@ -22,25 +24,28 @@ export default function Levels() {
   const router = useRouter()
 
   const { walletProvider } = useWeb3ModalProvider();
-
   const { address } = useWeb3ModalAccount();
+
 
   const readWriteProvider = getProvider(walletProvider);
 
+  const gaslessChess = useGaslessChess();
+
   const createGame = async (level: Number) => {
-    const signer = readWriteProvider
-      ? await readWriteProvider.getSigner()
-      : null;
-    const contract = getChessUpContract(signer);
+    // const signer = readWriteProvider
+    //   ? await readWriteProvider.getSigner()
+    //   : null;
+    // const contract = getChessUpContract(signer);
 
-    const tx = await contract.createGame(0, address, level);
-    const receipt = await tx.wait()
+    // const tx = await contract.createGame(0, address, level);
+    // const receipt = await tx.wait()
 
-    console.log(receipt);
-    if (receipt.status === 1) {
-      router.push(`/play/${receipt.hash}?level=${level}`)
-    }
+    // console.log(receipt);
+    // if (receipt.status === 1) {
+    //   router.push(`/play/${receipt.hash}?level=${level}`)
+    // }
 
+    await gaslessChess.createGame(0, ethers.ZeroAddress, level);
   };
 
   switch (level) {

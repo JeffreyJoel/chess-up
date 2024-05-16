@@ -17,13 +17,12 @@ import BlackRook from "@/assets/pieces-basic-svg/rook-b.svg";
 import WhiteRook from "@/assets/pieces-basic-svg/rook-w.svg";
 import Image from "next/image";
 
-export default function Square({ piece, index, draggedElement, setDElement, board, setPieces, boardActions }: { piece: string, index: number, setDElement: (e: [EventTarget, BoardContent, HTMLDivElement] | undefined) => void, draggedElement: [EventTarget, BoardContent, HTMLDivElement] | undefined | [HTMLDivElement, string, HTMLDivElement], board: Fen, setPieces: (e: Fen) => void, boardActions: any }) {
+export default function Square({ piece, index, draggedElement, setDElement, boardColor, boardActions }: { piece: string, index: number, setDElement: (e: [EventTarget, BoardContent, HTMLDivElement] | undefined) => void, draggedElement: [EventTarget, BoardContent, HTMLDivElement] | undefined | [HTMLDivElement, string, HTMLDivElement], boardColor: string[], boardActions: any }) {
     const [color, setColor] = useState("");
     const [cursor, setCursor] = useState("cursor-grab");
     const rows = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
     const row = Math.floor((63 - index) / 8) + 1;
     const idNum = index % 8;
-
     const pieces: any = {
         k: piece === piece.toUpperCase() ? WhiteKing : BlackKing,
         q: piece === piece.toUpperCase() ? WhiteQueen : BlackQueen,
@@ -34,12 +33,13 @@ export default function Square({ piece, index, draggedElement, setDElement, boar
     }
 
     useEffect(() => {
+        const colors = boardColor;
         if (row % 2 === 0) {
-            setColor(index % 2 === 0 ? "bg-[#EAEDD0]" : "bg-[#739552]");
+            setColor(index % 2 === 0 ? colors[1] : colors[0]);
         } else {
-            setColor(index % 2 === 0 ? "bg-[#739552]" : "bg-[#EAEDD0]");
+            setColor(index % 2 === 0 ? colors[0] : colors[1]);
         }
-    }, [index, row]);
+    }, [boardColor, index, row]);
 
 
     const setUp = (e: any) => {
