@@ -24,48 +24,47 @@ function useBoardActions(
     const from = _fro;
     const to = _to;
     const capt = board.isEmpty(to);
-    // console.log(boardEngine);
-    try {
-      if (boardEngine.move(from, to)) {
-        let farr = getFen(boardEngine.board.configuration);
-        setPieces(new Fen(farr));
+    console.log(boardEngine);
+    if (boardEngine.board.configuration.checkMate) {
+      Checkmate.current.play();
+      setIsCheckmate(true);
+    } else {
+      try {
+        if (boardEngine.move(from, to)) {
+          let farr = getFen(boardEngine.board.configuration);
+          setPieces(new Fen(farr));
 
-        if (boardEngine.board.configuration.checkMate) {
-          Checkmate.current.play();
-          setIsCheckmate(true);
-        } else if (boardEngine.board.configuration.check) {
-          Check.current.play();
-        } else if (!capt) {
-          Capture.current.play();
-        } else {
-          Move.current.play();
-        }
+          if (boardEngine.board.configuration.checkMate) {
+            Checkmate.current.play();
+          } else if (boardEngine.board.configuration.check) {
+            Check.current.play();
+          } else if (!capt) {
+            Capture.current.play();
+          } else {
+            Move.current.play();
+          }
 
-        console.log(boardEngine.board.history.length);
-        let move = moves;
-        if (
-          move[parseInt((boardEngine.board.history.length - 1) / 2)] !==
-          undefined
-        ) {
-          move[parseInt((boardEngine.board.history.length - 1) / 2)].push(_to);
-        } else {
-          move[parseInt((boardEngine.board.history.length - 1) / 2)] = [_to];
+          console.log(boardEngine.board.history.length);
+          let move = moves;
+          if (
+            move[parseInt((boardEngine.board.history.length - 1) / 2)] !==
+            undefined
+          ) {
+            move[parseInt((boardEngine.board.history.length - 1) / 2)].push(
+              _to
+            );
+          } else {
+            move[parseInt((boardEngine.board.history.length - 1) / 2)] = [_to];
+          }
+
+          setMoves(move);
+          setDElement(undefined);
         }
-        // if (boardEngine.board.configuration.turn === "black") {
-        //   await gaslessChess.move(
-        //     _gameId,
-        //     farr,
-        //     parseInt((boardEngine.board.history.length - 1) / 2),
-        //     _to
-        //   );
-        // }
-        setMoves(move);
-        setDElement(undefined);
-      }
-    } catch (error) {
-      console.log(error);
-      if (capt) {
-        Illegal.current.play();
+      } catch (error) {
+        console.log(error);
+        if (capt) {
+          Illegal.current.play();
+        }
       }
     }
   }
