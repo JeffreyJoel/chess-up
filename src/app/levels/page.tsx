@@ -32,6 +32,18 @@ export default function Levels() {
   const gaslessChess = useGaslessChess();
 
   const createGame = async (level: Number) => {
+    // const signer = readWriteProvider
+    //   ? await readWriteProvider.getSigner()
+    //   : null;
+    // const contract = getChessUpContract(signer);
+
+    // const tx = await contract.createGame(0, address, level);
+    // const receipt = await tx.wait()
+
+    // console.log(receipt);
+    // if (receipt.status === 1) {
+    //   router.push(`/play/${receipt.hash}?level=${level}`)
+    // }
 
     await gaslessChess.createGame(0, ethers.ZeroAddress, level);
   };

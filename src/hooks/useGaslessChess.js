@@ -15,7 +15,6 @@ import { getProvider } from "@/constants/providers";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
-
 const relay = new GelatoRelay();
 
 relay.onTaskStatusUpdate((taskStatus) => {
@@ -29,7 +28,6 @@ const API_KEY = `${process.env.NEXT_PUBLIC_GELATO_API_KEY}`;
 function useGaslessChess() {
   const { walletProvider } = useWeb3ModalProvider();
   const { address } = useWeb3ModalAccount();
-  const readWriteProvider = getProvider(walletProvider);
 
   const provider = getProvider(walletProvider);
   const [signer, setSigner] = useState();
@@ -45,7 +43,6 @@ function useGaslessChess() {
     }
     setup();
   }, []);
-
 
   async function createGame(_mode, _participant, _bot) {
     const { data } = await contract.createGame.populateTransaction(
