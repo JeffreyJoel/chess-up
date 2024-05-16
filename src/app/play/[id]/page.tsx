@@ -24,7 +24,7 @@ export default function Arena() {
     console.log(gameType);
     const searchParams = useSearchParams()
     const [level, setLevel] = useState<string>();
-
+    const { address } = useWeb3ModalAccount();
     const Move = useRef<any>();
     const Illegal = useRef<any>();
     const Capture = useRef<any>();
@@ -38,7 +38,7 @@ export default function Arena() {
 
     useEffect(() => {
         const queryValue = searchParams.get("level");
-        
+
         switch (Number(queryValue)) {
             case 0:
                 setLevel("AbidoShaker");
