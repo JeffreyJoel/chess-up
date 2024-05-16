@@ -13,9 +13,13 @@ function useBoardActions(
   Move,
   Illegal,
   moves,
-  setMoves
+  setMoves,
+  _gameId,
+  level,
+  setIsCheckmate
+  // gaslessChess
 ) {
-  function handleMoves(_fro, _to) {
+  async function handleMoves(_fro, _to) {
     // console.log(_fro, _to);
     const from = _fro;
     const to = _to;
@@ -28,6 +32,7 @@ function useBoardActions(
 
         if (boardEngine.board.configuration.checkMate) {
           Checkmate.current.play();
+          setIsCheckmate(true);
         } else if (boardEngine.board.configuration.check) {
           Check.current.play();
         } else if (!capt) {
@@ -46,17 +51,27 @@ function useBoardActions(
         } else {
           move[parseInt((boardEngine.board.history.length - 1) / 2)] = [_to];
         }
+        // if (boardEngine.board.configuration.turn === "black") {
+        //   await gaslessChess.move(
+        //     _gameId,
+        //     farr,
+        //     parseInt((boardEngine.board.history.length - 1) / 2),
+        //     _to
+        //   );
+        // }
         setMoves(move);
         setDElement(undefined);
       }
     } catch (error) {
       console.log(error);
-      Illegal.current.play();
+      if (capt) {
+        Illegal.current.play();
+      }
     }
   }
 
   function nextMove() {
-    const move = aiMove(boardEngine.board.configuration);
+    const move = aiMove(boardEngine.board.configuration, Number(level));
     handleMoves(Object.keys(move)[0], move[Object.keys(move)[0]]);
   }
 

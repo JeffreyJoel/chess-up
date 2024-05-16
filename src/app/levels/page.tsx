@@ -14,9 +14,9 @@ import {
   useWeb3ModalProvider,
 } from "@web3modal/ethers/react";
 import { useRouter } from "next/navigation";
+import useGaslessChess from "@/hooks/useGaslessChess";
+import { ethers } from "ethers";
 import toast from "react-hot-toast";
-
-import useGaslessChess from "../../hooks/useGaslessChess";
 
 export default function Levels() {
   const [level, setLevel] = useState(0);
@@ -27,35 +27,16 @@ export default function Levels() {
   const router = useRouter()
 
   const { walletProvider } = useWeb3ModalProvider();
-
   const { address } = useWeb3ModalAccount();
+
 
   const readWriteProvider = getProvider(walletProvider);
 
-  const {createGame} = useGaslessChess()
+  const gaslessChess = useGaslessChess();
 
-  const hangleCreateGame = async (level: Number) => {
-    const loadingToast1 = toast.loading('Creating Game..');
-    const signer = readWriteProvider
-      ? await readWriteProvider.getSigner()
-      : null;
-    const contract = getChessUpContract(signer);
+  const createGame = async (level: Number) => {
 
-    const tx = await contract.createGame(0, address, level);
-    const receipt = tx.wait(); 
-
-    console.log(receipt);
-    if (receipt?.status === 1) {
-      
-
-      router.push(`/play/${receipt.logs[0].topics[3]}?level=${level}`)
-      toast.remove(loadingToast1)
-      toast.success(`Redirecting to Created Game`)
-    }else{
-      toast.remove(loadingToast1)
-      toast.error("Error creating game")
-    // }
-
+    await gaslessChess.createGame(0, ethers.ZeroAddress, level);
   };
 
   switch (level) {

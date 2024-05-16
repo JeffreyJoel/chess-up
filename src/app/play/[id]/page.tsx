@@ -7,6 +7,9 @@ import { useParams, useRouter, useSearchParams } from "next/navigation";
 
 import useBoardActions from "../../../hooks/useBoardActions";
 import { Game } from "js-chess-engine";
+import { Button } from "@/components/ui/button";
+import useGaslessChess from "@/hooks/useGaslessChess";
+import { ethers } from "ethers";
 import { useWeb3ModalAccount } from "@web3modal/ethers/react";
 import Image from "next/image";
 
@@ -15,54 +18,59 @@ export default function Arena() {
     const {address} = useWeb3ModalAccount()
     const [draggedElement, setDElement] = useState<[EventTarget, BoardContent, HTMLDivElement]>();
     const [moves, setMoves] = useState<string[][]>(new Array(100));
+    const [isCheckmate, setIsCheckMate] = useState(false);
     const [pieces, setPieces] = useState<Fen>(new Fen(Fen.startingPosition));
+    const gaslessChess = useGaslessChess();
     const params = useParams<{ id: string }>();
     const gameType = params;
-    console.log(gameType)
-
     console.log(gameType);
     const searchParams = useSearchParams()
+
+    const [level, setLevel] = useState<string>();
+
     const queryValue = searchParams.get("level");
     let level;
-    let pics
-    console.log(queryValue)
+    let pics;
 
-    switch (Number(queryValue)) {
-        case 0:
-          level = "AbidoShaker";
-          pics = "/images/gandusa-gandusa.jpeg"
-          break;
-        case 1:
-          level = "GandukaGandusa";
-          pics = "/images/lemasepre.jpeg"
-          break;
-        case 2:
-          level = "Lamante";
-          pics = "/images/pahose.jpeg"
-          break;
-        case 3:
-          level = "Indaboski";
-          pics = "/images/Abidosaker.jpeg"
-          break;
-        default:
-          level = "Unknown Player"; // or some other default value
-      }
-    // useEffect(() => {
-    //     if (draggedElement === undefined) {
-    //         if (turn) {
-    //             // setPieces(new);
-    //             setPieces(new Fen().clear("e2").update("e4", BOARD_CONTENT.P));
-    //             console.log(pieces.printBoard());
-    //         }
-    //     }
-    // }, [draggedElement]);
     const Move = useRef<any>();
     const Illegal = useRef<any>();
     const Capture = useRef<any>();
     const Check = useRef<any>();
     const Checkmate = useRef<any>();
-    const [boardEngine, setBoardEngine] = useState<Game>(new Game());
-    const [BoardActions, setBoardActions] = useState(useBoardActions(boardEngine, pieces, setPieces, setDElement, Check, Checkmate, Capture, Move, Illegal, moves, setMoves));
+    const { address } = useWeb3ModalAccount();
+    const [colors, setColors] = useState<string[]>([]);
+    const [boardEngine,] = useState<Game>(new Game());
+    const [BoardActions,] = useState(useBoardActions(boardEngine, pieces, setPieces, setDElement, Check, Checkmate, Capture, Move, Illegal, moves, setMoves, gameType.id, searchParams.get("level"), setIsCheckMate));
+
+
+    useEffect(() => {
+        const queryValue = searchParams.get("level");
+        switch (Number(queryValue)) {
+            case 0:
+                setLevel("AbidoShaker");
+                setColors(["bg-[#4a7398]", "bg-[#ebe8d2]"]);
+                pics = "/images/gandusa-gandusa.jpeg";
+                break;
+            case 1:
+                setLevel("GandukaGandusa");
+                setColors(["bg-[#739552]", "bg-[#eaecd1]"]);
+                pics = "/images/lemasepre.jpeg";
+                break;
+            case 2:
+                setLevel("Lamante");
+                setColors(["bg-[#b98662]", "bg-[#edd6b0]"]);
+                pics = "/images/pahose.jpeg";
+                break;
+            case 3:
+                setLevel("Indaboski");
+                setColors(["bg-[#bb5746]", "bg-[#f5dbc3]"]);
+                 pics = "/images/Abidosaker.jpeg"
+                break;
+            default:
+                setLevel("Unknown Player"); // or some other default value
+                setColors(["bg-[#739552]", "bg-[#eaecd1]"]);
+        }
+    }, []);
 
     useEffect(() => {
         if (draggedElement === undefined) {
@@ -71,6 +79,22 @@ export default function Arena() {
             }
         }
     }, [BoardActions, boardEngine.board.configuration.checkMate, boardEngine.board.configuration.turn, draggedElement]);
+
+    useEffect(() => {
+        async function handleWin(winner) {
+            await gaslessChess.endGame(gameType.id, 3, "http", winner);
+        }
+        if (isCheckmate && boardEngine.board.configuration.turn === "black") {
+            handleWin(address);
+        }
+        if (isCheckmate && boardEngine.board.configuration.turn === "white") {
+            handleWin(ethers.ZeroAddress);
+        }
+    }, [address, boardEngine.board.configuration.turn, gameType.id, gaslessChess, isCheckmate]);
+
+    const handleResign = async () => {
+        await gaslessChess.endGame(gameType.id, 3, "http", ethers.ZeroAddress);
+    }
 
     return (
         <main className="flex min-h-screen flex-col items-center justify-between p-24 bg-[#1A2337]">
@@ -91,7 +115,7 @@ export default function Arena() {
                     </div>
 
                     <div className={`z-10 w-[640px] h-[640px] flex flex-row ${"flex-wrap"}`}>
-                        {pieces?.board.map((piece, index) => piece.map((pie, ind) => <Square key={8 * index + ind} piece={pie} index={8 * index + ind} setDElement={setDElement} draggedElement={draggedElement} board={pieces} setPieces={setPieces} boardActions={BoardActions} />))}
+                        {pieces?.board.map((piece, index) => piece.map((pie, ind) => <Square key={8 * index + ind} piece={pie} index={8 * index + ind} setDElement={setDElement} draggedElement={draggedElement} boardColor={colors} boardActions={BoardActions} />))}
                     </div>
                     <div className="flex flex-row w-[640px] gap-4 items-center border-b border-gray-300 bg-gradient-to-b from-[#111827] pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:rounded-b-xl lg:border lg:bg-[#1A2337] lg:p-4 lg:dark:bg-zinc-800/30">
                         <div className="border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30"></div>
@@ -101,7 +125,18 @@ export default function Arena() {
                         </div>
                     </div>
                 </div>
-                <div className="bg-[#111827] w-[450px]"></div>
+                <div className="bg-[#111827] w-[450px] p-12">
+                    <h3 className="text-white">Moves</h3>
+                    <div className="h-[500px] scroll-m-0 overflow-y-auto">
+                        <table>
+                            <tbody>
+                                {moves.map((move, index) => <tr className="gap-5 flex flex-row " key={index}> <td className="text-white font-semibold italic">{index + 1}. </td>{move?.map((mov, i) => <td className="text-white font-semibold italic" key={`${index}${i}`}>{mov}</td>)}</tr>)}
+                            </tbody>
+                        </table>
+                    </div>
+                    <Button className="btn bg-red-600 border-gray-300 w-full mt-3" onClick={handleResign}>Resign</Button>
+                    {isCheckmate && <Button className="btn bg-blue-600 border-gray-300 w-full mt-3" onClick={handleResign}>New Bot</Button>}
+                </div>
             </div>
         </main>
     );
