@@ -42,7 +42,7 @@ function useGaslessChess() {
       setContract(nContract);
     }
     setup();
-  }, []);
+  }, [provider]);
 
   async function createGame(_mode, _participant, _bot) {
     const { data } = await contract.createGame.populateTransaction(
