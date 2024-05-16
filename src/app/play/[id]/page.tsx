@@ -28,43 +28,40 @@ export default function Arena() {
 
     const [level, setLevel] = useState<string>();
 
-    const queryValue = searchParams.get("level");
-    let level;
-    let pics;
-
     const Move = useRef<any>();
     const Illegal = useRef<any>();
     const Capture = useRef<any>();
     const Check = useRef<any>();
     const Checkmate = useRef<any>();
-    const { address } = useWeb3ModalAccount();
     const [colors, setColors] = useState<string[]>([]);
+    const [pics, setPics] = useState<any>()
     const [boardEngine,] = useState<Game>(new Game());
     const [BoardActions,] = useState(useBoardActions(boardEngine, pieces, setPieces, setDElement, Check, Checkmate, Capture, Move, Illegal, moves, setMoves, gameType.id, searchParams.get("level"), setIsCheckMate));
 
 
     useEffect(() => {
         const queryValue = searchParams.get("level");
+        
         switch (Number(queryValue)) {
             case 0:
                 setLevel("AbidoShaker");
                 setColors(["bg-[#4a7398]", "bg-[#ebe8d2]"]);
-                pics = "/images/gandusa-gandusa.jpeg";
+                setPics("/images/gandusa-gandusa.jpeg");
                 break;
             case 1:
                 setLevel("GandukaGandusa");
                 setColors(["bg-[#739552]", "bg-[#eaecd1]"]);
-                pics = "/images/lemasepre.jpeg";
+                setPics("/images/lemasepre.jpeg");
                 break;
             case 2:
                 setLevel("Lamante");
                 setColors(["bg-[#b98662]", "bg-[#edd6b0]"]);
-                pics = "/images/pahose.jpeg";
+                setPics("/images/pahose.jpeg");
                 break;
             case 3:
                 setLevel("Indaboski");
                 setColors(["bg-[#bb5746]", "bg-[#f5dbc3]"]);
-                 pics = "/images/Abidosaker.jpeg"
+                setPics("/images/Abidosaker.jpeg");
                 break;
             default:
                 setLevel("Unknown Player"); // or some other default value

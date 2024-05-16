@@ -72,7 +72,7 @@ export default function Levels() {
           <Button
             className="w-48 bg-white hover:text-white hover:border-white hover:border  text-gray-900 text-xl font-bold"
             onClick={() => {
-              hangleCreateGame(0);
+              createGame(0);
             }}
             disabled={isLoading? true : false}
           >
@@ -97,7 +97,7 @@ export default function Levels() {
           <Button
             className="w-48 bg-white hover:text-white hover:border-white hover:border  text-gray-900 text-xl font-bold"
             onClick={() => {
-              hangleCreateGame(1);
+              createGame(1);
             }}
             disabled={isLoading? true : false}
           >
@@ -122,7 +122,7 @@ export default function Levels() {
           <Button
             className="w-48 bg-white text-gray-900 hover:text-white  text-xl hover:border-white hover:border  font-bold"
             onClick={() => {
-              hangleCreateGame(2);
+              createGame(2);
             }}
             disabled={isLoading? true : false}
           >
@@ -341,4 +341,4 @@ function UserIcon(props: SVGProps<SVGSVGElement>) {
       <circle cx="12" cy="7" r="4" />
     </svg>
   );
-}}
+}
