@@ -16,12 +16,9 @@ import {
 import { useRouter } from "next/navigation";
 import useGaslessChess from "@/hooks/useGaslessChess";
 import { ethers } from "ethers";
-import toast from "react-hot-toast";
 
 export default function Levels() {
   const [level, setLevel] = useState(0);
-  const [isLoading, setIsLoading]= useState(false)
-  
   let content;
 
   const router = useRouter()
@@ -74,7 +71,6 @@ export default function Levels() {
             onClick={() => {
               createGame(0);
             }}
-            disabled={isLoading? true : false}
           >
             Play
           </Button>
@@ -99,7 +95,6 @@ export default function Levels() {
             onClick={() => {
               createGame(1);
             }}
-            disabled={isLoading? true : false}
           >
             Play
           </Button>
@@ -124,7 +119,6 @@ export default function Levels() {
             onClick={() => {
               createGame(2);
             }}
-            disabled={isLoading? true : false}
           >
             Play
           </Button>
@@ -148,7 +142,6 @@ export default function Levels() {
             onClick={() => {
               createGame(3)
             }}
-            disabled={isLoading? true : false}
           >
             Play
           </Button>
