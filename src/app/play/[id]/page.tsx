@@ -14,6 +14,7 @@ import { useWeb3ModalAccount } from "@web3modal/ethers/react";
 
 
 export default function Arena() {
+    const router = useRouter()
     const [draggedElement, setDElement] = useState<[EventTarget, BoardContent, HTMLDivElement]>();
     const [moves, setMoves] = useState<string[][]>(new Array(100));
     const [isCheckmate, setIsCheckMate] = useState(false);
@@ -21,7 +22,6 @@ export default function Arena() {
     const gaslessChess = useGaslessChess();
     const params = useParams<{ id: string }>();
     const gameType = params;
-    console.log(gameType);
     const searchParams = useSearchParams()
     const [level, setLevel] = useState<string>();
     const { address } = useWeb3ModalAccount();
@@ -76,6 +76,9 @@ export default function Arena() {
 
     useEffect(() => {
         if (draggedElement === undefined) {
+            if (boardEngine.board.configuration.checkMate) {
+                setIsCheckMate(true);
+            };
             if (boardEngine.board.configuration.turn === "black" && !boardEngine.board.configuration.checkMate) {
                 setTimeout(() => { BoardActions.nextMove(); console.log(moves) }, 1000)
             }
@@ -96,6 +99,10 @@ export default function Arena() {
 
     const handleResign = async () => {
         await gaslessChess.endGame(gameType.id, 3, "http", ethers.ZeroAddress);
+    }
+
+    const handleNewBot = () => {
+        router.push("/levels");
     }
 
     return (
@@ -137,7 +144,7 @@ export default function Arena() {
                         </table>
                     </div>
                     <Button className="btn bg-red-600 border-gray-300 w-full mt-3" onClick={handleResign}>Resign</Button>
-                    {isCheckmate && <Button className="btn bg-blue-600 border-gray-300 w-full mt-3" onClick={handleResign}>New Bot</Button>}
+                    {isCheckmate && <Button className="btn bg-blue-600 border-gray-300 w-full mt-3" onClick={handleNewBot}>New Bot</Button>}
                 </div>
             </div>
         </main>
