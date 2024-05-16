@@ -11,11 +11,9 @@ import { Button } from "@/components/ui/button";
 import useGaslessChess from "@/hooks/useGaslessChess";
 import { ethers } from "ethers";
 import { useWeb3ModalAccount } from "@web3modal/ethers/react";
-import Image from "next/image";
 
 
 export default function Arena() {
-    const {address} = useWeb3ModalAccount()
     const [draggedElement, setDElement] = useState<[EventTarget, BoardContent, HTMLDivElement]>();
     const [moves, setMoves] = useState<string[][]>(new Array(100));
     const [isCheckmate, setIsCheckMate] = useState(false);
@@ -25,13 +23,7 @@ export default function Arena() {
     const gameType = params;
     console.log(gameType);
     const searchParams = useSearchParams()
-
     const [level, setLevel] = useState<string>();
-
-    const queryValue = searchParams.get("level");
-    let level;
-    let pics;
-
     const Move = useRef<any>();
     const Illegal = useRef<any>();
     const Capture = useRef<any>();
@@ -49,22 +41,18 @@ export default function Arena() {
             case 0:
                 setLevel("AbidoShaker");
                 setColors(["bg-[#4a7398]", "bg-[#ebe8d2]"]);
-                pics = "/images/gandusa-gandusa.jpeg";
                 break;
             case 1:
                 setLevel("GandukaGandusa");
                 setColors(["bg-[#739552]", "bg-[#eaecd1]"]);
-                pics = "/images/lemasepre.jpeg";
                 break;
             case 2:
                 setLevel("Lamante");
                 setColors(["bg-[#b98662]", "bg-[#edd6b0]"]);
-                pics = "/images/pahose.jpeg";
                 break;
             case 3:
                 setLevel("Indaboski");
                 setColors(["bg-[#bb5746]", "bg-[#f5dbc3]"]);
-                 pics = "/images/Abidosaker.jpeg"
                 break;
             default:
                 setLevel("Unknown Player"); // or some other default value
@@ -107,7 +95,7 @@ export default function Arena() {
                     <audio ref={Check} src="/sound/move-check.mp3" />
                     <audio ref={Checkmate} src="/sound/game-end.webm" />
                     <div className="flex flex-row w-[640px] gap-4 items-center border-b border-gray-300 bg-gradient-to-b from-[#111827] pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:rounded-t-xl lg:border lg:bg-[#1A2337] lg:p-4 lg:dark:bg-zinc-800/30">
-                       <Image src={pics} width={24} height={24} alt="levels" />
+                        <div className="border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-zinc-200 lg:p-4 lg:dark:bg-zinc-800/30"></div>
                         <div>
                             <p className="text-white">{level}</p>
                             <div></div>
